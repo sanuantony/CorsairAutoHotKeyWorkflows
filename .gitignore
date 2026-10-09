@@ -1,2 +1,10 @@
-functions.exe
-CoreLibrary.exe
+# Configuration files with sensitive data
+# config.ini
+config.json
+
+# AutoHotkey compiled executables
+*.exe
+
+# IDE files
+.vscode/
+.idea/

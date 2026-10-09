@@ -152,3 +152,50 @@ MSSQL_FormatSQL() {
     Sleep(50)
     Send("^y")
 }
+
+/**
+ * MSSQL_ExecuteQueryWithConfig
+ * Executes a SQL query using sqlcmd with credentials from config.ini.
+ * @param {String} query - The SQL query to execute.
+ */
+MSSQL_ExecuteQueryWithConfig(query := "") {
+    if (query == "") {
+        query := GetSelectedData()
+        if (query == "") {
+            ShowTooltip("No query provided or selected", 2000)
+            return
+        }
+    }
+
+    ; Read credentials from config.ini
+    server := GetConfigValue("SQL", "Server")
+    username := GetConfigValue("SQL", "Username")
+    password := GetConfigValue("SQL", "Password")
+    database := GetConfigValue("SQL", "Database")
+
+    if (server == "" || username == "" || password == "" || database == "") {
+        ShowTooltip("Missing SQL credentials in config.ini", 2000)
+        return
+    }
+
+    ; Build sqlcmd command
+    sqlcmdCmd := 'sqlcmd -S "' . server . '" -U ' . username . ' -P ' . password . ' -d ' . database . ' -Q "' . query . '"'
+
+    ShowTooltip("Executing SQL Query...", 1000)
+
+    ; Execute in PowerShell to handle the command properly
+    Run('powershell.exe -NoExit -Command "' . sqlcmdCmd . '"')
+}
+
+/**
+ * MSSQL_ExecuteQueryInteractive
+ * Prompts for a SQL query and executes it using sqlcmd with config credentials.
+ */
+MSSQL_ExecuteQueryInteractive() {
+    query := InputBox("Enter your SQL query:", "Execute SQL Query", "w400 h200", "")
+
+    if (query.Result == "Cancel" || query.Value == "")
+        return
+
+    MSSQL_ExecuteQueryWithConfig(query.Value)
+}

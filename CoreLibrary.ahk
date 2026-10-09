@@ -240,5 +240,33 @@ GetSelectedData() {
 ShowTooltip(message, duration := 1000) {
     ToolTip(message)
     Sleep(duration)
-    ToolTip() 
+    ToolTip()
+}
+
+
+; ==============================================================================
+; SECTION 5: CONFIGURATION & DATA STORAGE
+; ==============================================================================
+
+/**
+ * GetConfigValue
+ * Retrieves a specific value from an INI configuration file.
+ * @param {String} section - The INI section name (e.g., "SQL").
+ * @param {String} key - The key within the section (e.g., "Server").
+ * @param {String} [configPath] - Optional path to config file (default: config.ini).
+ * @returns {String} The config value, or empty string if not found.
+ */
+GetConfigValue(section, key, configPath := "config.ini") {
+    if !FileExist(configPath) {
+        ShowTooltip("Config file not found: " . configPath, 2000)
+        return ""
+    }
+
+    try {
+        value := IniRead(configPath, section, key, "")
+        return value
+    } catch Error as err {
+        ShowTooltip("Failed to read config: " . err.Message, 2000)
+        return ""
+    }
 }
