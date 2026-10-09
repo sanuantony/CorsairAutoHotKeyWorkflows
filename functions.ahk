@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0
 #SingleInstance Force
 #Include CoreLibrary.ahk
+#Include VSCode.ahk
+#Include Git.ahk
+#Include MSSQL.ahk
+#Include VisualStudio.ahk
 
 ; =========================================================================
 ; CORSAIR K55 FULL KEYBOARD MAPPER
@@ -517,6 +521,89 @@ funcKeypad0() {
     ShowTooltip("Numpad0",500)
 }
 
-funcKeypadPeriodAndDelete() {    
+funcKeypadPeriodAndDelete() {
     ShowTooltip("NumpadDel",500)
 }
+
+; =========================================================================
+; CONTEXTUAL F13 MAPPINGS (Application-Specific)
+; =========================================================================
+
+; VS Code Context
+#HotIf WinActive("ahk_exe Code.exe")
+F13 & t:: VSCode_SpawnTerminal()
+F13 & f:: VSCode_FormatDocument()
+F13 & b:: VSCode_ToggleSidebar()
+F13 & `:: VSCode_ToggleTerminal()
+F13 & d:: VSCode_GoToDefinition()
+F13 & r:: VSCode_PeekReferences()
+F13 & p:: VSCode_CommandPalette()
+F13 & s:: VSCode_SearchInFiles()
+F13 & g:: VSCode_GoToLine()
+F13 & a:: VSCode_SaveAll()
+F13 & w:: VSCode_CloseEditor()
+F13 & n:: VSCode_NewFile()
+F13 & o:: VSCode_OpenFile()
+F13 & /:: VSCode_ToggleComment()
+F13 & z:: VSCode_ZenMode()
+#HotIf
+
+; Git Bash Context
+#HotIf WinActive("ahk_exe mintty.exe")
+F13 & s:: Git_Status()
+F13 & p:: Git_Pull()
+F13 & u:: Git_Push()
+F13 & a:: Git_AddAll()
+F13 & c:: Git_Commit()
+F13 & l:: Git_Log()
+F13 & b:: Git_Branch()
+F13 & o:: Git_Checkout()
+F13 & t:: Git_Stash()
+F13 & r:: Git_StashPop()
+F13 & d:: Git_Diff()
+F13 & h:: Git_ResetHard()
+F13 & f:: Git_Fetch()
+F13 & m:: Git_Merge()
+#HotIf
+
+; MSSQL Context
+#HotIf WinActive("ahk_exe Ssms.exe")
+F13 & t:: MSSQL_SelectTop10()
+F13 & c:: MSSQL_SelectCount()
+F13 & e:: MSSQL_ExecuteQuery()
+F13 & n:: MSSQL_NewQuery()
+F13 & p:: MSSQL_ParseResults()
+F13 & /:: MSSQL_CommentSelection()
+F13 & \:: MSSQL_UncommentSelection()
+F13 & r:: MSSQL_RefreshObjectExplorer()
+F13 & g:: MSSQL_GoToLine()
+F13 & f:: MSSQL_FindAndReplace()
+F13 & `:: MSSQL_ToggleResultsPane()
+F13 & s:: MSSQL_SaveQuery()
+F13 & y:: MSSQL_FormatSQL()
+#HotIf
+
+; Visual Studio Context
+#HotIf WinActive("ahk_exe devenv.exe")
+F13 & b:: VS_BuildSolution()
+F13 & r:: VS_RebuildSolution()
+F13 & d:: VS_StartDebugging()
+F13 & s:: VS_StopDebugging()
+F13 & i:: VS_StepInto()
+F13 & o:: VS_StepOver()
+F13 & u:: VS_StepOut()
+F13 & t:: VS_ToggleBreakpoint()
+F13 & g:: VS_GoToDefinition()
+F13 & p:: VS_PeekDefinition()
+F13 & f:: VS_FindAllReferences()
+F13 & l:: VS_GoToLine()
+F13 & a:: VS_FindInFiles()
+F13 & q:: VS_QuickLaunch()
+F13 & e:: VS_SolutionExplorer()
+F13 & w:: VS_OutputWindow()
+F13 & `:: VS_ErrorList()
+F13 & k:: VS_SaveAll()
+F13 & /:: VS_CommentSelection()
+F13 & \:: VS_UncommentSelection()
+F13 & y:: VS_FormatDocument()
+#HotIf
