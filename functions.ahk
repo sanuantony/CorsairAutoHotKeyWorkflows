@@ -178,7 +178,8 @@ funcGraveAccentAndTilde() {
 }
 
 func1() {
-    ShowTooltip("1", 500)
+    ; Open Vs code in current working directory
+    OpenVSCode(A_WorkingDir)
 }
 
 func2() {
@@ -215,6 +216,9 @@ func9() {
 
 func0() {
     ShowTooltip("0", 500)
+    loremText := "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    A_Clipboard := loremText
+    Send("^v")
 }
 
 funcMinusAndUnderscore() {
