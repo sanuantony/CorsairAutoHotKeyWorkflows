@@ -22,6 +22,7 @@ The workflow is organized around a single central script, [functions.ahk](functi
 - [MSSQL.ahk](MSSQL.ahk) — SSMS query and object explorer shortcuts
 - [VisualStudio.ahk](VisualStudio.ahk) — Visual Studio build/debug/navigation shortcuts
 - [RipGrep.ahk](RipGrep.ahk) — ripgrep search helpers and search variant commands
+- [config.ini](config.ini) — SQL connection settings used by the SSMS helper scripts
 - [F13 Profile.cueprofile](F13%20Profile.cueprofile) — exported Corsair iCUE profile that emits F13+key combinations
 - [LICENSE](LICENSE) — GNU GPL v3 license
 
@@ -52,8 +53,9 @@ This makes the same keyboard layer usable across multiple developer tools while 
 - Windows
 - AutoHotkey v2
 - Corsair iCUE with a compatible Corsair keyboard
-- PowerShell (for launch helper commands)
+- PowerShell (for launch helper commands and SQL execution)
 - ripgrep installed and available on PATH for the RG helpers
+- SQL Server access for the `sqlcmd`-based helpers, configured via [config.ini](config.ini)
 
 ---
 
@@ -61,11 +63,22 @@ This makes the same keyboard layer usable across multiple developer tools while 
 
 1. Import the profile from [F13 Profile.cueprofile](F13%20Profile.cueprofile) in Corsair iCUE.
 2. Assign it to the intended keyboard.
-3. Run [functions.ahk](functions.ahk) with AutoHotkey v2.
-4. Make sure the script is placed alongside the included files so the module includes resolve correctly.
-5. Test a few F13 chords in the target app.
+3. Update [config.ini](config.ini) with the appropriate SQL Server connection values if you plan to use the SSMS/sqlcmd helpers.
+4. Run [functions.ahk](functions.ahk) with AutoHotkey v2.
+5. Make sure the script is placed alongside the included files so the module includes resolve correctly.
+6. Test a few F13 chords in the target app.
 
 > Back up any existing keyboard profile before loading this one. The remap changes key output and should be tested carefully.
+
+Example SQL section for [config.ini](config.ini):
+
+```ini
+[SQL]
+Server=YOUR_SQL_SERVER
+Username=YOUR_USERNAME
+Password=YOUR_PASSWORD
+Database=YOUR_DATABASE
+```
 
 ---
 
@@ -120,6 +133,9 @@ Defined in [CoreLibrary.ahk](CoreLibrary.ahk):
 
 - GetSelectedData()
   - Copies the currently selected text to the clipboard and restores the previous clipboard state.
+
+- GetConfigValue(section, key, configPath := "config.ini")
+  - Reads an INI value from the project configuration file.
 
 - ShowTooltip(message, duration := 1000)
   - Displays a temporary tooltip.
@@ -198,6 +214,7 @@ Defined in [MSSQL.ahk](MSSQL.ahk):
 - F13 + `: toggle results pane
 - F13 + s: save query
 - F13 + y: format SQL
+- SQL helper functions also support `sqlcmd` execution using the credentials in [config.ini](config.ini), including interactive query entry
 
 ### Visual Studio
 
