@@ -5,6 +5,7 @@
 #Include Git.ahk
 #Include MSSQL.ahk
 #Include VisualStudio.ahk
+#Include RipGrep.ahk
 
 ; =========================================================================
 ; CORSAIR K55 FULL KEYBOARD MAPPER
@@ -462,67 +463,67 @@ funcNumLock() {
 }
 
 funcKeypadSlash() {
-    ShowTooltip("NumpadDiv", 500)
+    RG_SearchReplace()
 }
 
 funcKeypadAsterisk() {
-    ShowTooltip("NumpadMult", 500)
+    RG_SearchJSON()
 }
 
 funcKeypadMinus() {
-    ShowTooltip("NumpadSub", 500)
+    RG_SearchCount()
 }
 
 funcKeypad7() {
-    ShowTooltip("Numpad7", 500)
+    RG_SearchCurrentDir()
 }
 
 funcKeypad8() {
-    ShowTooltip("Numpad8", 500)
+    RG_SearchCaseInsensitive()
 }
 
 funcKeypad9() {
-    ShowTooltip("Numpad9", 500)
+    RG_SearchWithContext()
 }
 
 funcKeypadPlus() {
-    ShowTooltip("NumpadAdd", 500)
+    RG_SearchInGitIgnored()
 }
 
 funcKeypad4() {
-    ShowTooltip("Numpad4", 500)
+    RG_SearchOnlyFilenames()
 }
 
 funcKeypad5() {
-    ShowTooltip("Numpad5", 500)
+    RG_SearchWithLineNumbers()
 }
 
 funcKeypad6() {
-    ShowTooltip("Numpad6", 500)
+    RG_SearchWordMatch()
 }
 
 funcKeypad1() {
-    ShowTooltip("Numpad1", 500)
+    RG_SearchRegex()
 }
 
 funcKeypad2() {
-    ShowTooltip("Numpad2", 500)
+    RG_SearchInType("ts")
 }
 
 funcKeypad3() {
-    ShowTooltip("Numpad3", 500)
+    RG_SearchInAllTypes("ts,js,tsx")
 }
 
 funcKeypadEnter() {
-    ShowTooltip("NumpadEnter", 500)
+    RG_SearchSelectedText()
 }
 
 funcKeypad0() {
-    ShowTooltip("Numpad0",500)
+    RG_SearchInHidden()
 }
 
 funcKeypadPeriodAndDelete() {
-    ShowTooltip("NumpadDel",500)
+    RG_SearchWithStats()
 }
 
 ; =========================================================================
