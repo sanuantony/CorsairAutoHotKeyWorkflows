@@ -1,5 +1,4 @@
 # Configuration files with sensitive data
-# config.ini
 config.json
 
 # AutoHotkey compiled executables
@@ -8,3 +7,4 @@ config.json
 # IDE files
 .vscode/
 .idea/
+config.ini
