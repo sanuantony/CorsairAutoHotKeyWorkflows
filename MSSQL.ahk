@@ -178,13 +178,22 @@ MSSQL_ExecuteQueryWithConfig(query := "") {
         return
     }
 
-    ; Build sqlcmd command
-    sqlcmdCmd := 'sqlcmd -S "' . server . '" -U ' . username . ' -P ' . password . ' -d ' . database . ' -Q "' . query . '"'
+    ; Create a temporary SQL file to avoid escaping issues
+    tempFile := A_Temp . "\temp_query_" . A_TickCount . ".sql"
+    if FileExist(tempFile)
+        FileDelete(tempFile)
+    FileAppend(query, tempFile)
+
+    ; Build sqlcmd command using -i flag for input file
+    sqlcmdCmd := 'sqlcmd -S "' . server . '" -U ' . username . ' -P ' . password . ' -d ' . database . ' -i "' . tempFile . '"'
 
     ShowTooltip("Executing SQL Query...", 1000)
 
-    ; Execute in PowerShell to handle the command properly
-    Run('powershell.exe -NoExit -Command "' . sqlcmdCmd . '"')
+    ; Execute in PowerShell
+    Run('powershell.exe -NoExit -Command "& ' . sqlcmdCmd . '"')
+
+    ; Clean up temp file after a delay
+    SetTimer(() => (FileExist(tempFile) ? FileDelete(tempFile) : 0), -5000)
 }
 
 /**

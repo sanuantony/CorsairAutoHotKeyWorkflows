@@ -6,6 +6,7 @@
 #Include MSSQL.ahk
 #Include VisualStudio.ahk
 #Include RipGrep.ahk
+#Include powershellScripts.ahk
 
 ; =========================================================================
 ; CORSAIR K55 FULL KEYBOARD MAPPER
@@ -275,7 +276,7 @@ funcI() {
 }
 
 funcO() {
-    ShowTooltip("O", 500)
+    MSSQL_ExecuteQueryInteractive()
 }
 
 funcP() {
@@ -395,7 +396,7 @@ funcLeftAlt() {
 }
 
 funcSpace() {
-    ShowTooltip("Space", 500)
+    ClearLicxFiles()
 }
 
 funcRightAlt() {
@@ -582,6 +583,7 @@ F13 & f:: MSSQL_FindAndReplace()
 F13 & `:: MSSQL_ToggleResultsPane()
 F13 & s:: MSSQL_SaveQuery()
 F13 & y:: MSSQL_FormatSQL()
+F13 & o:: MSSQL_ExecuteQueryInteractive()
 #HotIf
 
 ; Visual Studio Context
